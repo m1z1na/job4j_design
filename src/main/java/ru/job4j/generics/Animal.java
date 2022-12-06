@@ -1,6 +1,6 @@
 package ru.job4j.generics;
 
-public class Animal {
+public class Animal extends  TEST{
    private String name;
 
     @Override
@@ -11,6 +11,7 @@ public class Animal {
     }
 
     public Animal( String name){
+        super( name );
         this.name = name;
     }
 }
