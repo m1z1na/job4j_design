@@ -26,7 +26,7 @@ public class EvenNumberFile {
             }
 
 
-        } catch (Exception e) {
+        } catch (IOException e ) {
             e.printStackTrace();
         }
     }
