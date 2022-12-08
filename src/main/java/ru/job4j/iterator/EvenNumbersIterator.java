@@ -27,6 +27,7 @@ public class EvenNumbersIterator implements Iterator<Integer> {
         return index < data.length && data[index]%2==0;
     }
 
+
     @Override
     public Integer next() {
         if (!hasNext()) {
