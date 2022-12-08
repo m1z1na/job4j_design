@@ -28,7 +28,7 @@ public class MatrixIt implements Iterator<Integer> {
             }
         {
             for (column_has  = column; column_has  < data[column].length; column_has ++ ){
-//                column = column_has ;
+
 
         }
         if ( data[row_has][column_has] > 0 )
