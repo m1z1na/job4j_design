@@ -12,11 +12,11 @@ public class MaxMin<T> {
         list.add(1);
         list.add(2);
         list.add(3);
-//        max( list);
+
     }
 
     public void max (List<T> value, Comparator<T> comparator) {
-//    public <T> T max(List<T> value, Comparator<T> comparator) {
+
         for (T val:value ) {
             
                 System.out.println(val);
