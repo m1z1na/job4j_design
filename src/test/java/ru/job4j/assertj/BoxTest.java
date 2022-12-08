@@ -42,18 +42,18 @@ class BoxTest {
 
     @Test
     void checkSphereArea() {
-        Box box = new Box(0, 10);
-        int name = (int) box.getArea();
-        assertThat(name).isEqualTo(1256);
+        Box box = new Box(0, 5);
+        double name = box.getArea();
+        assertThat(name).isEqualTo(314.1592653589793);
 
     }
 
 
     @Test
     void checkCubeArea() {
-        Box box = new Box(8, 5);
-        int name = (int) box.getArea();
-        assertThat(name).isEqualTo(150);
+        Box box = new Box(8, 1);
+        double name = box.getArea();
+        assertThat(name).isEqualTo(6.0);
 
     }
 }
