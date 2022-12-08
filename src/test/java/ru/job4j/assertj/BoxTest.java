@@ -54,6 +54,5 @@ class BoxTest {
         Box box = new Box(8, 1);
         double name = box.getArea();
         assertThat(name).isEqualTo(6.0);
-
     }
 }
