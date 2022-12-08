@@ -56,7 +56,4 @@ class BoxTest {
         assertThat(name).isEqualTo(150);
 
     }
-
-
-
 }
