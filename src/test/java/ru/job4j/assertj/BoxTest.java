@@ -48,6 +48,7 @@ class BoxTest {
 
     }
 
+
     @Test
     void checkCubeArea() {
         Box box = new Box(8, 5);
@@ -55,6 +56,7 @@ class BoxTest {
         assertThat(name).isEqualTo(150);
 
     }
+
 
 
 }
