@@ -15,7 +15,7 @@ public class Generics {
         first.add(new Animal("Animal"));
         second.add(new Predator("Predator"));
         third.add(new Tiger("Tiger"));
-        third2.add(new Tiger("TEST"));
+
 
         gen.printObject(Collections.singletonList(first));
         gen.printObject(Collections.singletonList(second));
@@ -28,7 +28,6 @@ public class Generics {
 
         gen.printLowerBoundedWildCard(first);
         gen.printLowerBoundedWildCard(second);
-        gen.printLowerBoundedWildCard(third2);
     }
 
     public void printObject(List<Object> list) {
