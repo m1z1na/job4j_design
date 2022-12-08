@@ -14,7 +14,6 @@ public class EvenNumberFile {
                 text.append((char) read);
             }
 
-
             String[] lines = text.toString().split("\\s+");
             for (String line : lines) {
                 if (Integer.parseInt(line) % 2 == 0) {
@@ -26,7 +25,7 @@ public class EvenNumberFile {
             }
 
 
-        } catch (IOException e ) {
+        } catch (IOException e) {
 
             e.printStackTrace();
         }
