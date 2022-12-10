@@ -17,22 +17,21 @@ public class SimpleTree<E> implements Tree<E> {
 
     public boolean add(E parent, E child) {
 
-        boolean rslt = false;
-        if (isExist(child) == false) {
-            Optional<Node<E>> rsl = Optional.empty();
+
+        if (findBy(parent).isPresent() && !findBy(child).isPresent()) {
+
             Queue<Node<E>> data = new LinkedList<>();
             data.offer(this.root);
             while (!data.isEmpty()) {
                 Node<E> el = data.poll();
                 if (el.value.equals(parent)) {
                     el.addChildren(child);
-                    rslt = true;
-                    break;
+                    return true;
                 }
                 data.addAll(el.children);
             }
         }
-        return rslt;
+        return false;
 
     }
 
@@ -51,23 +50,6 @@ public class SimpleTree<E> implements Tree<E> {
             data.addAll(el.children);
         }
         return rsl;
-    }
-
-
-    private boolean isExist(E child) {
-        boolean rsl = false;
-        Queue<Node<E>> data = new LinkedList<>();
-        data.offer(this.root);
-        while (!data.isEmpty()) {
-            Node<E> el = data.poll();
-            if (el.value == child) {
-                rsl = true;
-                break;
-            }
-            data.addAll(el.children);
-        }
-        return rsl;
-
     }
 
 }
