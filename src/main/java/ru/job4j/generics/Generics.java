@@ -11,16 +11,15 @@ public class Generics {
         List<Animal> first = new ArrayList<>();
         List<Predator> second = new ArrayList<>();
         List<Tiger> third = new ArrayList<>();
-        List<TEST> third2 = new ArrayList<>();
         first.add(new Animal("Animal"));
         second.add(new Predator("Predator"));
         third.add(new Tiger("Tiger"));
 
-
-        gen.printObject(Collections.singletonList(first));
-        gen.printObject(Collections.singletonList(second));
-        gen.printObject(Collections.singletonList(third));
+        gen.printObject(first);
+        gen.printObject(second);
+        gen.printObject(third);
         System.out.println();
+
 
         gen.printBoundedWildCard(second);
         gen.printBoundedWildCard(third);
@@ -30,8 +29,9 @@ public class Generics {
         gen.printLowerBoundedWildCard(second);
     }
 
-    public void printObject(List<Object> list) {
-        for (Iterator<Object> it = list.iterator(); it.hasNext();) {
+
+    public void printObject(List<?> list) {
+        for (Iterator<?> it = list.iterator(); it.hasNext();) {
             Object next = it.next();
             System.out.println("Текущий элемент: " + next);
         }
