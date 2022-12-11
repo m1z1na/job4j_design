@@ -6,6 +6,7 @@ public class SimpleTree<E> implements Tree<E> {
 
 
     private final Node<E> root;
+    private Node<E> parent;
 
     public SimpleTree(final E root) {
         this.root = new Node<>(root);
@@ -18,23 +19,13 @@ public class SimpleTree<E> implements Tree<E> {
     public boolean add(E parent, E child) {
 
 
-        if (findBy(parent).isPresent() && !findBy(child).isPresent()) {
-
-            Queue<Node<E>> data = new LinkedList<>();
-            data.offer(this.root);
-            while (!data.isEmpty()) {
-                Node<E> el = data.poll();
-                if (el.value.equals(parent)) {
-                    el.addChildren(child);
-                    return true;
-                }
-                data.addAll(el.children);
-            }
+        if (!findBy(child).isPresent() && findBy(parent).isPresent()) {
+            Node<E> curNode = findBy(parent).get();
+            curNode.addChildren(child);
+            return true;
         }
         return false;
-
     }
-
 
     @Override
     public Optional<Node<E>> findBy(E value) {
