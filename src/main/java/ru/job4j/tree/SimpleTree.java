@@ -6,7 +6,6 @@ public class SimpleTree<E> implements Tree<E> {
 
 
     private final Node<E> root;
-    private Node<E> parent;
 
     public SimpleTree(final E root) {
         this.root = new Node<>(root);
