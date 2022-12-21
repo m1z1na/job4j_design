@@ -24,10 +24,7 @@ public class UserExec {
         map.put(user1, new Object());
         map.put(user2, new Object());
         map.forEach((key, value) -> System.out.println(key + ":" + value));
-//        System.out.println(map.size());
-//        System.out.println(user1 == user2);
-//        System.out.println( "user1 :"  +  hashCode1 + "    "  + hash1 + "    " + bucket1);
-//        System.out.println( "user2 :"  +  hashCode2 + "    "  + hash2 + "    " + bucket2);
+
     }
 
 }
