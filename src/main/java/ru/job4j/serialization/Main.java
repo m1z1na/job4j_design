@@ -1,13 +1,10 @@
 package ru.job4j.serialization;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.PropertyException;
-import java.io.StringWriter;
+
 
 public class Main {
 
@@ -19,12 +16,11 @@ public class Main {
 
 
         JAXBContext context = JAXBContext.newInstance(Ticket.class);
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        StringWriter sw = new StringWriter();
-        marshaller.marshal(ticket, sw);
+        Marshaller m = context.createMarshaller();
+        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        m.marshal(ticket, System.out);
 
-        System.out.println(sw.toString());
+
 
     }
 }

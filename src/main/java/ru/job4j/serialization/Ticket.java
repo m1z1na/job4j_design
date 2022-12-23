@@ -2,21 +2,21 @@ package ru.job4j.serialization;
 
 import javax.xml.bind.annotation.*;
 import java.util.Arrays;
-@XmlTransient
+
 @XmlRootElement
 public class Ticket {
-
-    private final Person passenger;
-
-    private final String countryFrom;
     @XmlElement
-    private final String countryTo;
-
-    private final Long number;
-
-    private final boolean is_used;
-
-    private final int[] vouchers;
+    private  Person passenger;
+    @XmlElement
+    private  String countryFrom;
+    @XmlElement
+    private  String countryTo;
+    @XmlElement
+    private  Long number;
+    @XmlElement
+    private  boolean is_used;
+    @XmlElement
+    private  int[] vouchers;
 
 
     public Ticket(Person passenger, String countryFrom, String countryTo, Long number, boolean is_used, int[] vouchers) {
@@ -26,6 +26,10 @@ public class Ticket {
         this.number = number;
         this.is_used = is_used;
         this.vouchers = vouchers;
+    }
+
+    public Ticket( ) {
+
     }
 
     @Override
