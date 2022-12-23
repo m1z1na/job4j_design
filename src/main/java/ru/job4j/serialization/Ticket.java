@@ -1,14 +1,21 @@
 package ru.job4j.serialization;
 
+import javax.xml.bind.annotation.*;
 import java.util.Arrays;
-
+@XmlTransient
+@XmlRootElement
 public class Ticket {
 
     private final Person passenger;
+
     private final String countryFrom;
+    @XmlElement
     private final String countryTo;
+
     private final Long number;
+
     private final boolean is_used;
+
     private final int[] vouchers;
 
 
