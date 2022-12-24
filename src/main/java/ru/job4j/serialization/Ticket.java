@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 @XmlRootElement
 public class Ticket {
-    @XmlElement
+
     private  Person passenger;
     @XmlElement
     private  String countryFrom;
@@ -15,17 +15,18 @@ public class Ticket {
     private  Long number;
     @XmlElement
     private  boolean is_used;
-    @XmlElement
-    private  int[] vouchers;
+    @XmlElementWrapper(name = "vouchers")
+    @XmlElement(name = "voucher")
+    private  int[] voucher;
 
 
-    public Ticket(Person passenger, String countryFrom, String countryTo, Long number, boolean is_used, int[] vouchers) {
+    public Ticket(Person passenger, String countryFrom, String countryTo, Long number, boolean is_used, int[] voucher) {
         this.passenger = passenger;
         this.countryFrom = countryFrom;
         this.countryTo = countryTo;
         this.number = number;
         this.is_used = is_used;
-        this.vouchers = vouchers;
+        this.voucher = voucher;
     }
 
     public Ticket( ) {
@@ -40,7 +41,7 @@ public class Ticket {
                 ", countryTo='" + countryTo + '\'' +
                 ", number=" + number +
                 ", is_used=" + is_used +
-                ", vouchers=" + Arrays.toString(vouchers) +
+                ", vouchers=" + Arrays.toString(voucher) +
                 '}';
     }
 }

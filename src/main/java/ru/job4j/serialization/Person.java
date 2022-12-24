@@ -1,8 +1,14 @@
 package ru.job4j.serialization;
 
 
+import javax.xml.bind.annotation.*;
+
+
+@XmlRootElement(name = "person")
 public class Person {
+    @XmlAttribute
     private final String fio;
+    @XmlAttribute
     private final int age;
 
     public Person(String fio, int age) {
