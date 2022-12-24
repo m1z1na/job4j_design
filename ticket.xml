@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ticket>
+    <passenger>
+        <name>Ivan</name>
+        <surname>Ivanov</surname>
+        <age>18</age>
+        <sex>man</sex>
+    </passenger>
+    <countryFrom>Россия</countryFrom>
+    <countryTo>Казахстан</countryTo>
+    <number>23723992</number>
+    <is_used>false</is_used>
+    <vouchers>
+        <voucher>55</voucher>
+        <voucher>433</voucher>
+    </vouchers>
+</ticket>
+
+
