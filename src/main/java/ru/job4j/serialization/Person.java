@@ -4,19 +4,21 @@ package ru.job4j.serialization;
 import javax.xml.bind.annotation.*;
 
 
-@XmlRootElement(name = "person")
-public class Person {
-    @XmlAttribute
-    private final String fio;
-    @XmlAttribute
-    private final int age;
+
+
+public class Person  {
+    @XmlElement
+    private String fio;
+    @XmlElement
+    private int age;
 
     public Person(String fio, int age) {
         this.fio = fio;
         this.age = age;
     }
+    public Person( ) {
 
-
+    }
     @Override
     public String toString() {
         return "Person{" +
@@ -24,4 +26,8 @@ public class Person {
                 ", age=" + age +
                 '}';
     }
+
+
+
+
 }

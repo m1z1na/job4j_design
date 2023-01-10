@@ -1,12 +1,15 @@
 package ru.job4j.serialization;
 
 import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
 
 @XmlRootElement
 public class Ticket {
-
+    @XmlElements(
+            @XmlElement(name="passenger", type=Person.class) )
     private  Person passenger;
+
     @XmlElement
     private  String countryFrom;
     @XmlElement
@@ -18,6 +21,7 @@ public class Ticket {
     @XmlElementWrapper(name = "vouchers")
     @XmlElement(name = "voucher")
     private  int[] voucher;
+
 
 
     public Ticket(Person passenger, String countryFrom, String countryTo, Long number, boolean is_used, int[] voucher) {
