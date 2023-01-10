@@ -1,9 +1,9 @@
-CREATE TABLE fauna(
-    id integer NOT NULL DEFAULT nextval('fauna_id_seq'::regclass),
-    name text COLLATE pg_catalog."default",
-    avg_age integer,
-    discovery_date date,
-    CONSTRAINT fauna_pkey PRIMARY KEY (id)
+CREATE TABLE scheduler(
+    id serial primary key,
+    title text,
+    start timestamp with time zone,
+    "end" timestamp with time zone,
+    active boolean
 );
 
 INSERT INTO public.scheduler(
