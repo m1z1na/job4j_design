@@ -15,9 +15,9 @@ create table devices_people(
     people_id int references people(id)
 );
 
-insert into devices(name) values ('Галя');
-insert into devices(name) values ('Валя');
-insert into devices(name) values ('Ваня');
+insert into people(name) values ('Галя');
+insert into people(name) values ('Валя');
+insert into people(name) values ('Ваня');
 
 insert into devices(name, price) values ('Телефон', 5000 );
 insert into devices(name, price) values ('Наушники', 500 );
