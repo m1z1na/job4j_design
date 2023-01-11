@@ -12,7 +12,7 @@ create table pupil(
 );
 
 --one-to-one
-create table library(
+create table library_card(
     id serial primary key,
     library_card int
 );
