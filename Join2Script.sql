@@ -5,7 +5,7 @@ create table departments(
     name varchar(255)
 );
 
-create table employees(
+create table employee(
     id serial primary key,
     name varchar(255),
 	dep_id int references departments(id)
