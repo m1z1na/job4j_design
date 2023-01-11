@@ -40,6 +40,6 @@ create table man(
 create table couple(
     id serial primary key,
     wife_id int references woman(id) unique,
-    husband_id int references man(id) unique
+    husband_id int references man(id) unique,
     ex_couple boolean
 );
