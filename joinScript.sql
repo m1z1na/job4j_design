@@ -15,8 +15,8 @@ insert into author(name) values ('Пушкин А.С.');
 insert into author(name) values ('Толстой Л.Н.');
 insert into author(name) values ('Семенов В.Г.');
 
-insert into people(name, author_id) values ('Капитанская дочка', 1);
-insert into people(name, author_id) values ('Война и Мир', 2);
+insert into book(name, author_id) values ('Капитанская дочка', 1);
+insert into book(name, author_id) values ('Война и Мир', 2);
 
 select bk.name as "Название книги", auth.name as "автор"
     from author auth join book bk on bk.author_id = auth.id;
