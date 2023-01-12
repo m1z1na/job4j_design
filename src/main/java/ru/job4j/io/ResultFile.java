@@ -2,7 +2,7 @@ package ru.job4j.io;
 
 import java.util.List;
 
-class LogFilter {
+class LogFilter2 {
     public static List<String> filter(String file) {
         return null;
     }
