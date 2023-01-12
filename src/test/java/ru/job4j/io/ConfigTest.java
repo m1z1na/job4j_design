@@ -13,4 +13,22 @@ class ConfigTest {
         config.load();
         assertThat(config.value("name")).isEqualTo("Petr");
     }
+
+    @Test
+    void whenerrorLinesExists() {
+        String path = "./data/app.properties";
+        Config config = new Config(path);
+        config.load();
+        boolean rsl = config.errorLinesExists();
+        assertThat(rsl).isTrue();
+    }
+
+    @Test
+    void wheneignoreLinesExists() {
+        String path = "./data/app.properties";
+        Config config = new Config(path);
+        config.load();
+        boolean rsl = config.ignoreLinesExists();
+        assertThat(rsl).isTrue();
+    }
 }

@@ -1,8 +1,6 @@
 package ru.job4j.io;
 
 import java.io.FileNotFoundException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,11 +8,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.StringJoiner;
-import java.util.stream.Collectors;
 
 public class Config {
 
     private final String path;
+    private int ignoreLine;
+    private int errorLine;
     private final Map<String, String> values = new HashMap<String, String>();
 
     public Config(final String path) {
@@ -27,12 +26,14 @@ public class Config {
 
             while ((line = read.readLine()) != null) {
                 String[] parts = line.split("=", 2);
-                if (parts.length >= 2) {
+                if (parts.length >= 2 && parts[0] != "" && parts[1] != "") {
                     String key = parts[0];
                     String value = parts[1];
                     values.put(key, value);
+                } else if (line.contains("#")) {
+                    ignoreLine = ignoreLine + 1;
                 } else {
-                    System.out.println("ignoring line: " + line);
+                    errorLine = errorLine + 1;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -44,6 +45,14 @@ public class Config {
 
     public String value(String key) {
         return values.get(key);
+    }
+
+    public boolean errorLinesExists() {
+        return errorLine > 0;
+    }
+
+    public boolean ignoreLinesExists() {
+        return ignoreLine > 0;
     }
 
     @Override
