@@ -12,7 +12,7 @@ public class LogFilter {
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 if (line.contains("404 ")) {
-                    list.add(line);
+                    list.add(line.substring(0, line.indexOf(" 404")));
                 }
             }
         } catch (Exception e) {
@@ -24,7 +24,15 @@ public class LogFilter {
     public static void main(String[] args) {
         LogFilter logFilter = new LogFilter();
         List<String> log = logFilter.filter("data/log.txt");
-        System.out.println(log);
+
+        for (int i = 0; i < log.size(); i++) {
+            System.out.println(log.get(i));
+        }
+
+
+    }
+
+    public static void save(List<String> log, String file) {
 
     }
 }
