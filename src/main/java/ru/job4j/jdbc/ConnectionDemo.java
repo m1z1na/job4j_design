@@ -7,10 +7,12 @@ import java.sql.SQLException;
 
 public class ConnectionDemo {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        Class.forName("org.postgresql.Driver");
-        String url = "jdbc:postgresql://localhost:5432/postgres";
-        String login = "postgres";
-        String password = "password";
+        Config config = new Config("data/app.properties");
+        config.load();
+        Class.forName(config.value("connection.driver_class"));
+        String url = config.value("connection.url");
+        String login = config.value("username");
+        String password = config.value("password");
         try (Connection connection = DriverManager.getConnection(url, login, password)) {
             DatabaseMetaData metaData = connection.getMetaData();
             System.out.println(metaData.getUserName());
