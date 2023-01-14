@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LogFilter {
-    private final String delimeter = " "; // Разделитель
-    private final String error = "404"; // Разделитель
+    private final String delimeter = " ";
+    private final String error = "404";
 
     public List<String> filter(String file) {
 
@@ -37,7 +37,6 @@ public class LogFilter {
             System.out.println(log.get(i));
         }
     }
-
     public static void save(List<String> log, String file) {
 
     }
