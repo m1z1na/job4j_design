@@ -6,13 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LogFilter {
+    private final String delimeter = " "; // Разделитель
+    private final String error = "404"; // Разделитель
 
     public List<String> filter(String file) {
+
         List<String> list = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
-                if (line.contains("404 ")) {
-                    list.add(line.substring(0, line.indexOf(" 404")));
+                String[] data = line.split(delimeter);
+                if (data[data.length - 2].equals(error)) {
+                    String oneLine = "";
+                    for (int i = 0; i < data.length - 2; i++) {
+                        oneLine = oneLine + " " + data[i];
+                    }
+                    list.add(oneLine);
                 }
             }
         } catch (Exception e) {
@@ -28,8 +36,6 @@ public class LogFilter {
         for (int i = 0; i < log.size(); i++) {
             System.out.println(log.get(i));
         }
-
-
     }
 
     public static void save(List<String> log, String file) {
