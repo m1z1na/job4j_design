@@ -1,6 +1,6 @@
 package ru.job4j.io;
 
-import javax.xml.bind.JAXBException;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
