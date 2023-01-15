@@ -39,7 +39,6 @@ public class Analysis {
 
     public List<String> getSource(String file) {
 
-        String lastTime = "";
         List<String> list = new ArrayList<>();
 
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
