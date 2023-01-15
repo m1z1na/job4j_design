@@ -1,4 +1,5 @@
 package ru.job4j.io;
+
 import java.io.File;
 
 public class Dir {
@@ -12,7 +13,7 @@ public class Dir {
         }
         System.out.println(String.format("size : %s", file.getTotalSpace()));
         for (File subfile : file.listFiles()) {
-            System.out.println(subfile.getAbsoluteFile());
+            System.out.println(String.format(" %s has size %s", subfile.getAbsoluteFile(), subfile.length()));
         }
     }
 }
