@@ -24,16 +24,16 @@ public class Analysis {
 
 
     public void saveTarget() {
-//        try {
-//            FileWriter fw = new FileWriter(file, true);
-//            for (int i = 0; i < log.size(); i++) {
-//                fw.write(log.get(i));
-//                fw.write("\n");
-//            }
-//            fw.close();
-//        } catch (IOException ioe) {
-//            System.err.println("IOException: " + ioe.getMessage());
-//        }
+      /*  try {
+            FileWriter fw = new FileWriter(file, true);
+            for (int i = 0; i < log.size(); i++) {
+                fw.write(log.get(i));
+                fw.write("\n");
+            }
+            fw.close();
+        } catch (IOException ioe) {
+            System.err.println("IOException: " + ioe.getMessage());
+        }*/
     }
 
 
