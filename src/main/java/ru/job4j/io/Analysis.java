@@ -13,7 +13,7 @@ public class Analysis {
         for (int i = 0; i < log.size(); i++) {
             System.out.println(log.get(i));
         }
-
+        saveTarget(log, target);
 
     }
 
@@ -23,47 +23,45 @@ public class Analysis {
     }
 
 
-    public void saveTarget() {
-      /*  try {
-            FileWriter fw = new FileWriter(file, true);
-            for (int i = 0; i < log.size(); i++) {
-                fw.write(log.get(i));
+    public void saveTarget(List<String> log, String file) {
+        try (FileWriter fw = new FileWriter(file, true)) {
+
+            for (String line : log) {
+                fw.write(line);
                 fw.write("\n");
             }
-            fw.close();
+
         } catch (IOException ioe) {
             System.err.println("IOException: " + ioe.getMessage());
-        }*/
+        }
     }
 
 
     public List<String> getSource(String file) {
-        boolean closeTime = false;
+
         String lastTime = "";
         List<String> list = new ArrayList<>();
 
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
-            String period = "";
+            String beginTime = "";
+
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 String[] data = line.split(delimeter);
                 int code = Integer.parseInt(data[0]);
-                lastTime = data[1];
+
                 if (code >= 400 && code <= 500) {
-                    if (closeTime == true) {
-                        period = period + ";" + data[1] + ";";
-                        list.add(period);
-                        closeTime = false;
-                    } else {
-                        closeTime = true;
-                        period = data[1];
+                    if (beginTime == "") {
+                        beginTime = data[1];
                     }
+                } else if (beginTime != "") {
+                    list.add(beginTime + ";" + data[1] + ";");
+                    beginTime = "";
                 }
+
             }
-            if (closeTime == true) {
-                period = period + ";" + lastTime + ";";
-                list.add(period);
-            }
-        } catch (Exception e) {
+
+        } catch (
+                Exception e) {
             e.printStackTrace();
         }
         return list;
