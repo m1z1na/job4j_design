@@ -18,12 +18,8 @@ public class LogFilter {
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 String[] data = line.split(delimeter);
-                if (data[data.length - 2].equals(error)) {
-                    String oneLine = "";
-                    for (int i = 0; i < data.length - 2; i++) {
-                        oneLine = oneLine + " " + data[i];
-                    }
-                    list.add(oneLine);
+                if (error.equals(data[data.length - 2])) {
+                    list.add(line);
                 }
             }
         } catch (Exception e) {
