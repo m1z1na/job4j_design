@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.StringJoiner;
 public class Config {
 
     private final String path;
@@ -38,6 +37,10 @@ public class Config {
 
     public String value(String key) {
         return values.get(key);
+    }
+
+    public Map<String, String> getAll( ) {
+        return values;
     }
 
 
