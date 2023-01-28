@@ -1,6 +1,6 @@
 package ru.job4j.jdbc;
 
-import java.io.FileInputStream;
+
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
@@ -28,11 +28,21 @@ public class TableEditor implements AutoCloseable {
 
     }
 
+    private static Properties classLoader() throws Exception {
+        Properties config = new Properties();
+        try (InputStream in = TableEditor.class.getClassLoader().getResourceAsStream("app.properties")) {
+
+
+            config.load(in);
+        }
+        return config;
+    }
+
     public void createTable(String tableName) throws SQLException, ClassNotFoundException {
 
-        try (Statement statement = connection.createStatement()) {
+        try (Statement statement = createStatement(connection)) {
             String sql = String.format(
-                    "create table if not exists " + tableName + "(%s);",
+                    "create table if not exists %s(%%s);".formatted(tableName),
                     "id serial primary key"
             );
             statement.execute(sql);
@@ -41,9 +51,9 @@ public class TableEditor implements AutoCloseable {
     }
 
     public void dropTable(String tableName) {
-        try (Statement statement = connection.createStatement()) {
+        try (Statement statement = createStatement(connection)) {
             String sql = String.format(
-                    "drop table " + tableName
+                    "drop table %s ", tableName
             );
             statement.execute(sql);
 
@@ -54,11 +64,11 @@ public class TableEditor implements AutoCloseable {
     }
 
     public void addColumn(String tableName, String columnName, String type) {
-        try (Statement statement = connection.createStatement()) {
+        try (Statement statement = createStatement(connection)) {
 
             String sql = String.format(
                     "ALTER TABLE %s ADD COLUMN %s %s", tableName, columnName, type);
-            statement.executeUpdate(sql);
+            statement.execute(sql);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -67,11 +77,11 @@ public class TableEditor implements AutoCloseable {
     }
 
     public void dropColumn(String tableName, String columnName) {
-        try (Statement statement = connection.createStatement()) {
+        try (Statement statement = createStatement(connection)) {
 
             String sql = String.format(
                     "ALTER TABLE %s DROP COLUMN %s", tableName, columnName);
-            statement.executeUpdate(sql);
+            statement.execute(sql);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -80,7 +90,7 @@ public class TableEditor implements AutoCloseable {
 
     public void renameColumn(String tableName, String columnName, String newColumnName) {
 
-        try (Statement statement = connection.createStatement()) {
+        try (Statement statement = createStatement(connection)) {
 
             String sql =
                     String.format("ALTER TABLE %s RENAME COLUMN %s TO %s", tableName, columnName, newColumnName
@@ -114,21 +124,21 @@ public class TableEditor implements AutoCloseable {
 
     public static void main(String[] args) throws Exception {
 
-        Properties config = new Properties();
-        try (FileInputStream in = new FileInputStream("data/app.properties")) {
-            config.load( in );
+
+        try (TableEditor table = new TableEditor(classLoader())) {
+
+            table.createTable("supertest");
+            System.out.println(table.getTableScheme("supertest"));
+            table.addColumn("supertest", "age", "INT");
+            System.out.println(table.getTableScheme("supertest"));
+            table.renameColumn("supertest", "age", "newage");
+            System.out.println(table.getTableScheme("supertest"));
+            table.dropColumn("supertest", "newage");
+            System.out.println(table.getTableScheme("supertest"));
+            table.dropTable("supertest");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        TableEditor table = new TableEditor(config);
-        table.createTable("supertest");
-        System.out.println(table.getTableScheme("supertest"));
-        table.addColumn( "supertest","age", "INT" );
-        System.out.println(table.getTableScheme("supertest"));
-        table.renameColumn("supertest", "age", "newage");
-        System.out.println(table.getTableScheme("supertest"));
-        table.dropColumn( "supertest","newage"  );
-        System.out.println(table.getTableScheme("supertest"));
-        table.dropTable( "supertest");
-        table.close();
 
     }
 
@@ -137,5 +147,9 @@ public class TableEditor implements AutoCloseable {
         if (connection != null) {
             connection.close();
         }
+    }
+
+    private Statement createStatement(Connection connection) throws SQLException {
+        return connection.createStatement();
     }
 }
