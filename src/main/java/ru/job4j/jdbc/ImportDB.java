@@ -11,13 +11,17 @@ import java.util.List;
 import java.util.Properties;
 
 public class ImportDB {
-    private final String delimeter = ";";
-    private Properties cfg;
+    private Connection connection;
+    private static final String DELIMETR = ";";
+    private Properties properties;
+    ;
     private String dump;
 
-    public ImportDB(Properties cfg, String dump) {
-        this.cfg = cfg;
+    public ImportDB(Properties properties, String dump) throws SQLException, ClassNotFoundException {
+        this.properties = properties;
+        ;
         this.dump = dump;
+        connection = initConnection();
     }
 
     public List<User> load() throws IOException {
@@ -26,8 +30,8 @@ public class ImportDB {
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
 
             for (String line = rd.readLine(); line != null; line = rd.readLine()) {
-                String[] data = line.split(delimeter);
-                if (data[0] != "" && data[1] != "") {
+                String[] data = line.split(DELIMETR);
+                if (data[0].isBlank() && data[1].isBlank()) {
                     users.add(new User(data[0], data[1]));
                 }
             }
@@ -36,24 +40,28 @@ public class ImportDB {
         return users;
     }
 
-    public void save(List<User> users) throws ClassNotFoundException, SQLException {
-        Class.forName(cfg.getProperty("connection.driver_class"));
-        try (Connection cnt = DriverManager.getConnection(
-                cfg.getProperty("connection.url"),
-                cfg.getProperty("username"),
-                cfg.getProperty("password")
+    private Connection initConnection() throws ClassNotFoundException, SQLException {
 
-        )) {
-            for (User user : users) {
-                try (PreparedStatement ps = cnt.prepareStatement("insert into users(name, email) values (?, ?)")) {
-                    ps.setString(1, user.name);
-                    ps.setString(2, user.email);
-                    ps.execute();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        Class.forName(properties.getProperty("connection.driver_class"));
+        String url = properties.getProperty("connection.url");
+        String login = properties.getProperty("username");
+        String password = properties.getProperty("password");
+        return DriverManager.getConnection(url, login, password);
+
+    }
+
+    public void save(List<User> users) throws ClassNotFoundException, SQLException {
+
+        for (User user : users) {
+            try (PreparedStatement ps = connection.prepareStatement("insert into users(name, email) values (?, ?)")) {
+                ps.setString(1, user.name);
+                ps.setString(2, user.email);
+                ps.execute();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
+
     }
 
     private static class User {
@@ -68,11 +76,17 @@ public class ImportDB {
 
 
     public static void main(String[] args) throws Exception {
-        Properties cfg = new Properties();
-        try (FileInputStream in = new FileInputStream("data/app.properties")) {
-            cfg.load(in);
-        }
-        ImportDB db = new ImportDB(cfg, "./dump.txt");
+
+        ImportDB db = new ImportDB(classLoader(), "./dump.txt");
         db.save(db.load());
+    }
+
+
+    private static Properties classLoader() throws Exception {
+        Properties config = new Properties();
+        try (InputStream in = TableEditor.class.getClassLoader().getResourceAsStream("app.properties")) {
+            config.load(in);
+        }
+        return config;
     }
 }
