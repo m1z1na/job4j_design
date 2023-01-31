@@ -15,20 +15,19 @@ class ConfigTest {
     }
 
     @Test
-    void whenerrorLinesExists() {
-        String path = "./data/app.properties";
+    void whenSymbol() {
+        String path = "./data/pair_without_comment.properties";
         Config config = new Config(path);
         config.load();
-        boolean rsl = config.errorLinesExists();
-        assertThat(rsl).isTrue();
+        assertThat(config.value("ключ")).isEqualTo("значение=1");
     }
 
     @Test
-    void wheneignoreLinesExists() {
+    void wheneWithoutignoreLines() {
         String path = "./data/app.properties";
         Config config = new Config(path);
         config.load();
         boolean rsl = config.ignoreLinesExists();
-        assertThat(rsl).isTrue();
+        assertThat(rsl).isFalse();
     }
 }

@@ -13,7 +13,7 @@ public class Config {
 
     private final String path;
     private int ignoreLine;
-    private int errorLine;
+
     private final Map<String, String> values = new HashMap<String, String>();
 
     public Config(final String path) {
@@ -26,14 +26,14 @@ public class Config {
 
             while ((line = read.readLine()) != null) {
                 String[] parts = line.split("=", 2);
-                if (parts.length >= 2 && parts[0] != "" && parts[1] != "") {
+                if (!parts[0].isBlank() && !parts[1].isBlank()) {
                     String key = parts[0];
                     String value = parts[1];
                     values.put(key, value);
-                } else if (line.contains("#")) {
+                } else if (line.contains("#") || parts.length == 0) {
                     ignoreLine = ignoreLine + 1;
                 } else {
-                    errorLine = errorLine + 1;
+                   throw new IllegalArgumentException();
                 }
             }
         } catch (FileNotFoundException e) {
@@ -45,10 +45,6 @@ public class Config {
 
     public String value(String key) {
         return values.get(key);
-    }
-
-    public boolean errorLinesExists() {
-        return errorLine > 0;
     }
 
     public boolean ignoreLinesExists() {
