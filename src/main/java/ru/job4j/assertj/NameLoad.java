@@ -14,26 +14,26 @@ public class NameLoad {
         values.putAll(Arrays.stream(names)
                 .map(String::trim)
                 .filter(this::validate)
-                .map(s -> s.split("=", 2))
+                .map(line -> line.split("=", 2))
                 .collect(Collectors.toMap(
                         e -> e[0],
                         e -> e[1],
-                        (first, second) -> String.format("%s+%s", first, second)
+                        (first, second) -> "%s+%s".formatted(first, second)
                 )));
     }
 
     private boolean validate(String name) {
         if (!name.contains("=")) {
             throw new IllegalArgumentException(
-                    String.format("this name: %s does not contain the symbol \"=\"", name));
+                    "this name: %s does not contain the symbol '='".formatted(name));
         }
         if (name.startsWith("=")) {
             throw new IllegalArgumentException(
-                    String.format("this name: %s does not contain a key", name));
+                    "this name: %s does not contain a key".formatted(name));
         }
         if (name.indexOf("=") == name.length() - 1) {
             throw new IllegalArgumentException(
-                    String.format("this name: %s does not contain a value", name));
+                    "this name: %s does not contain a value".formatted(name));
         }
         return true;
     }
