@@ -6,4 +6,5 @@ public interface SimpleList<T> extends Iterable<T> {
     T remove(int index);
     T get(int index);
     int size();
+
 }
