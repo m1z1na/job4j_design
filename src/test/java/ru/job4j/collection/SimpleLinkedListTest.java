@@ -75,6 +75,7 @@ class SimpleLinkedListTest {
         assertThat(it.next()).isEqualTo(2);
     }
 
+
     @Test
     void whenGetIteratorTwiceThenEveryFromBegin() {
         Iterator<Integer> first = list.iterator();
