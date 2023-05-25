@@ -25,7 +25,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T set(int index, T newValue) {
-        if (index >= size) {
+        if (Objects.checkIndex(index, size) < 0) {
             throw new IndexOutOfBoundsException();
         }
         T value = container[index];
@@ -74,8 +74,8 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            final int sizeI = size;
+        return new Iterator<>() {
+            final int sizeI = modCount;
             int ind;
 
             @Override
