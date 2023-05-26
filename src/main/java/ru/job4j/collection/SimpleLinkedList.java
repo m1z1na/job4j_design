@@ -1,20 +1,22 @@
 package ru.job4j.collection;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 public class SimpleLinkedList<E> implements LinkedList<E> {
 
     private int size = 0;
     private int modCount = 0;
     private Node<E> head;
+    private Node<E> currentValue;
 
     @Override
     public void add(E value) {
         size++;
         if (head == null) {
-            this.head = new Node<>(value, null);
+            head = new Node<>(value, null);
         } else {
-            Node<E> currentNode = this.head;
+            Node<E> currentNode = head;
             while (currentNode.next != null) {
                 currentNode = currentNode.next;
             }
@@ -24,7 +26,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
 
     @Override
     public E get(int index) {
-        if (index > size - 1) {
+        if (Objects.checkIndex(index, size) < 0) {
             throw new IndexOutOfBoundsException();
         }
         Node<E> value = head;
@@ -37,16 +39,18 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     @Override
     public Iterator<E> iterator() {
         modCount = 0;
+        currentValue = head;
         return new Iterator<E>() {
 
             @Override
             public boolean hasNext() {
-                return size > modCount;
+                return modCount < size;
             }
 
             @Override
             public E next() {
-                var value = get(modCount);
+                E value = currentValue.item;
+                currentValue = currentValue.next;
                 modCount++;
                 return value;
             }
