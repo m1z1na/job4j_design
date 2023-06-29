@@ -58,10 +58,10 @@ public class ForwardLinked<T> implements Iterable<T> {
 
             @Override
             public T next() {
-//                if (modCount != size) {
+/*                if (modCount != size) {
 //                    throw new ConcurrentModificationException();
-//                }
-                System.out.println("test");
+                }*/
+                    System.out.println("test");
                 var value = get(modCount);
                 modCount++;
                 return value;
