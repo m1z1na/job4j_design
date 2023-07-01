@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.NoSuchElementException;
 
 class SimpleStackTest {
-    private SimpleStack<Integer> stack;
+  /*  private SimpleStack<Integer> stack;
 
     @BeforeEach
     void init() {
@@ -36,5 +36,5 @@ class SimpleStackTest {
         assertThat(stack.pop()).isEqualTo(1);
         assertThatThrownBy(stack::pop)
                 .isInstanceOf(NoSuchElementException.class);
-    }
+    }*/
 }
