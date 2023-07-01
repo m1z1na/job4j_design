@@ -24,7 +24,9 @@ public class SearchFiles implements FileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        list.add(file);
+        if (condition.test(file)) {
+            list.add(file);
+        }
         return FileVisitResult.CONTINUE;
     }
 
@@ -40,6 +42,6 @@ public class SearchFiles implements FileVisitor<Path> {
     }
 
     public List<Path> getPaths() {
-        return list.stream().filter(condition).toList();
+        return list;
     }
 }
