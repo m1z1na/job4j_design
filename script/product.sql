@@ -64,3 +64,22 @@ create trigger history_trigger
     after insert on products
     FOR EACH ROW
     execute procedure history();
+
+
+--За основу возьмите таблицу, с которой мы работали в описании. В описании мы рассмотрели вариант вставки данных, изменения данных. Добавьте процедуру и функцию, которая будет удалять записи.
+ --Условия выбирайте сами – удаление по id, удалить если количество товара равно 0 и т.п.
+create or replace function f_delete_data(u_count integer, u_id integer)
+returns integer
+language 'plpgsql'
+as
+$$
+    declare
+        result integer;
+    begin
+---Если кол-во меньше 10, то удаляем
+        if u_count < 10 THEN
+            delete from products where id = u_id;
+        end if;
+        return result;
+    end;
+$$;
