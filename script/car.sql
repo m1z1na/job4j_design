@@ -20,6 +20,7 @@ create table car_engines (
 create table cars (
     id serial primary key,
     name varchar(255),
+    owner_id int references owners(id),
     body_id int references car_bodies(id),
     trans_id int references car_transmissions(id),
     engine_id int references car_engines(id)
@@ -40,9 +41,14 @@ insert into car_engines (name) values ( 'gasoline');
 insert into car_engines (name) values ( 'diesel');
 insert into car_engines (name) values ( 'hybrid');
 
-insert into cars (name, body_id, trans_id, engine_id) values ('Kia Rio', 1, 2, 1);
-insert into cars (name, body_id, trans_id, engine_id) values ('Kia Rio', 2, 2, 2);
-insert into cars (name, body_id, trans_id, engine_id) values ('Kia Rio', 3, 1, 1);
+--insert into cars (name, body_id, trans_id, engine_id) values ('Kia Rio', 1, 2, 1);
+--insert into cars (name, body_id, trans_id, engine_id) values ('Kia Rio', 2, 2, 2);
+--insert into cars (name, body_id, trans_id, engine_id) values ('Kia Rio', 3, 1, 1);
+
+
+insert into cars (name, body_id, trans_id, engine_id, owner_id) values ('Kia Rio', 1, 2, 1, 1);
+insert into cars (name, body_id, trans_id, engine_id, owner_id) values ('Kia Rio', 2, 2, 2, 2);
+insert into cars (name, body_id, trans_id, engine_id, owner_id) values ('Kia Rio', 3, 1, 1, 2);
 
 --Вывести список всех машин и все привязанные к ним детали. Нужно учесть, что каких-то деталей машина может и не содержать. В таком случае значение может быть null при выводе (например, название двигателя null);
 
@@ -73,3 +79,23 @@ from car_transmissions as trans
 left join cars as car on car.trans_id = trans.id
 where car.id is null;
 
+
+---1. Представления [#504792]
+create table owners (
+    id serial primary key,
+    name varchar(255)
+);
+
+
+insert into owners(name) values ('Галя');
+insert into owners(name) values ('Валя');
+insert into owners(name) values ('Ваня');
+---Представление для выбора владельцев одной и более машины
+create view show_owners_with_1_or_more_cars
+    as select owner.name as owner, count(car.name)
+		 from owners as owner
+         join cars car on owner.id = car.owner_id
+         group by (owner.name, car.name) having count(car.name) >= 1;
+
+
+select * from show_owners_with_1_or_more_cars;
