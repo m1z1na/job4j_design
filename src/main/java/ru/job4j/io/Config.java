@@ -24,13 +24,14 @@ public class Config {
         String line;
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
 
-            while ((line = read.readLine()) != null) {
-                String[] parts = line.split("=", 2);
-                if (!parts[0].isBlank() && !parts[1].isBlank()) {
+            while ((line = read.readLine()) != null ) {
+                String[] parts = line.length() > 0 ? line.split("=", 2) : null;
+//                System.out.println(parts.length);
+                if ( parts != null && !parts[0].isBlank() && !parts[1].isBlank()) {
                     String key = parts[0];
                     String value = parts[1];
                     values.put(key, value);
-                } else if (line.contains("#") || parts.length == 0) {
+                } else if ( parts == null || line.contains("#") ) {
                     ignoreLine = ignoreLine + 1;
                 } else {
                    throw new IllegalArgumentException();
