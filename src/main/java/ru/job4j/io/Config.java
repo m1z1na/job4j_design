@@ -26,7 +26,6 @@ public class Config {
 
             while ((line = read.readLine()) != null ) {
                 String[] parts = line.length() > 0 ? line.split("=", 2) : null;
-//                System.out.println(parts.length);
                 if ( parts != null && !parts[0].isBlank() && !parts[1].isBlank()) {
                     String key = parts[0];
                     String value = parts[1];
