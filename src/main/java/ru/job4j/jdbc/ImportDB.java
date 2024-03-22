@@ -44,11 +44,11 @@ public class ImportDB {
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             for (String line = rd.readLine(); line != null; line = rd.readLine()) {
                 String[] data = line.split(DELIMETR);
-                if ( data.length == 2 && !data[0].isBlank() && !data[1].isBlank()) {
-              /*      throw new IllegalArgumentException();
-                } else {*/
+                if ( data.length != 2 || data[0].isBlank() ||  data[1].isBlank()) {   
+                    throw new IllegalArgumentException();
+               }
                     users.add(new User(data[0], data[1]));
-                }
+                 
             }
 
         }
